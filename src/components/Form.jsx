@@ -42,7 +42,7 @@ const Form = ({ onSave }) => {
               value={form[FORM_KEYS.NAME]}
               onChange={(e) => handleChangeForm(FORM_KEYS.NAME, e.target.value)}
               placeholder="Job Name"
-              pattern="[a-zA-Z0-9\s]+"
+              pattern="[a-zA-Z0-9\sğüşöçıİĞÜŞÖÇ]+"
               maxLength="255"
             />
           </div>
