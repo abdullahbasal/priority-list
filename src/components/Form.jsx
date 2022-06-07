@@ -29,34 +29,46 @@ const Form = ({ onSave }) => {
 
   return (
     <>
-      <b>Create New Job</b>
       <form onSubmit={handleSave}>
-        <input
-          required
-          type="text"
-          name="name"
-          value={form[FORM_KEYS.NAME]}
-          onChange={(e) => handleChangeForm(FORM_KEYS.NAME, e.target.value)}
-          placeholder="Form Name"
-          pattern="[a-zA-Z0-9]+"
-          maxLength="255"
-        />
-        <label htmlFor="job Priority">Job Priority</label>
-        <select
-          name="Priority"
-          id="Priority"
-          onChange={(e) =>
-            handleChangeForm(FORM_KEYS.PRIORITY, {
-              name: e.target.value,
-              order: PRIORITY_ORDER_MAP[e.target.value],
-            })
-          }>
-          <option defaultValue="Urgent">Urgent</option>
-          <option value="Regular">Regular</option>
-          <option value="Trivial">Trivial</option>
-        </select>
-
-        <input type="submit" value="Save" />
+        <div className="row m-3">
+          <b className="m-2" style={{ textAlign: 'center' }}>
+            Create New Job
+          </b>
+          <div className="col-7 job-name-div">
+            <input
+              required
+              type="text"
+              name="name"
+              value={form[FORM_KEYS.NAME]}
+              onChange={(e) => handleChangeForm(FORM_KEYS.NAME, e.target.value)}
+              placeholder="Job Name"
+              pattern="[a-zA-Z0-9\s]+"
+              maxLength="255"
+            />
+          </div>
+          <div className="col-3 priority-div">
+            <select
+              name="Priority"
+              id="Priority"
+              onChange={(e) =>
+                handleChangeForm(FORM_KEYS.PRIORITY, {
+                  name: e.target.value,
+                  order: PRIORITY_ORDER_MAP[e.target.value],
+                })
+              }>
+              <option defaultValue="Urgent">Urgent</option>
+              <option value="Regular">Regular</option>
+              <option value="Trivial">Trivial</option>
+            </select>
+          </div>
+          <div className="col create-button-div">
+            <input
+              type="submit"
+              value="Create"
+              className="create-button button"
+            />
+          </div>
+        </div>
       </form>
     </>
   );

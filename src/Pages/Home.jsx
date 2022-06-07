@@ -42,6 +42,13 @@ export default function Home() {
   }
   return (
     <div>
+      <div className="col" style={{ textAlign: 'center' }}>
+        <img
+          className="priority-img"
+          src="https://t3.ftcdn.net/jpg/02/80/07/10/360_F_280071095_5fkzcvx7iOxX0Nzwnl4jQh3IO3yXI1wE.jpg"
+        />
+      </div>
+
       <Form onSave={handleSaveForm} />
       <List
         removeClicked={removeClicked}

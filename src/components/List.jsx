@@ -2,30 +2,45 @@ import React, { useState } from 'react';
 import Delete from '../assets/delete.png';
 import Edit from '../assets/edit.png';
 import '../App.css';
+import PriorityText from './PriorityText';
 export default function List({ removeClicked, editClicked, list }) {
-  const [searchValue, setSearchValue] = useState('');
+  const [jobNameValue, setjobNameValue] = useState('');
+  const [priorityValue, setPriorityValue] = useState('');
+
   const getFilteredItems = () => {
-    if (searchValue) {
+    if (jobNameValue) {
       return list.filter((item) =>
-        item.name.toLowerCase().includes(searchValue.toLowerCase())
+        item.name.toLowerCase().includes(jobNameValue.toLowerCase())
+      );
+    } else if (priorityValue) {
+      return list.filter((item) =>
+        item.priority.name.toLowerCase().includes(priorityValue.toLowerCase())
       );
     }
     return list;
   };
   return (
-    <div className="container">
-      <input
-        type="text"
-        className="icon-rtl"
-        placeholder="Search Job Name"
-        onChange={(e) => setSearchValue(e.target.value)}
-      />
-      <input
-        type="text"
-        className="icon-rtl"
-        placeholder="Priority (all)"
-        onChange={(e) => setSearchValue(e.target.value)}
-      />
+    <>
+      <div className="col table-search-area">
+        <div className="row m-2">
+          <div className="col-7 job-name-search">
+            <input
+              type="text"
+              className="icon-rtl"
+              placeholder="Search Job Name"
+              onChange={(e) => setjobNameValue(e.target.value)}
+            />
+          </div>
+          <div className="col-5 priority-search">
+            <input
+              type="text"
+              className="icon-rtl"
+              placeholder="Priority (all)"
+              onChange={(e) => setPriorityValue(e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
       <table id="toDoTable">
         <thead>
           <tr>
@@ -40,15 +55,26 @@ export default function List({ removeClicked, editClicked, list }) {
             .sort((a, b) => a.priority.order - b.priority.order)
             .map((item, i) => (
               <tr key={i}>
-                <td scope="row">{i + 1}</td>
-                <td>{item.name}</td>
-                <td>{item.priority.name}</td>
-                <td>
-                  <button onClick={() => editClicked(item)}>
+                <td scope="row" width="80px" style={{ textAlign: 'center' }}>
+                  {i + 1}
+                </td>
+                <td width="600px" style={{ maxWidth: '600px' }}>
+                  {item.name}
+                </td>
+                <td width="100px">
+                  <PriorityText priority={item.priority.name} />
+                </td>
+                <td width="300px" style={{ textAlign: 'center' }}>
+                  <button
+                    className="table-button edit-button"
+                    onClick={() => editClicked(item)}>
                     <img src={Edit} />
                   </button>
 
-                  <button type="button" onClick={() => removeClicked(item.id)}>
+                  <button
+                    className="table-button thrash-button"
+                    type="button"
+                    onClick={() => removeClicked(item.id)}>
                     <img src={Delete} />
                   </button>
                 </td>
@@ -56,6 +82,6 @@ export default function List({ removeClicked, editClicked, list }) {
             ))}
         </tbody>
       </table>
-    </div>
+    </>
   );
 }
